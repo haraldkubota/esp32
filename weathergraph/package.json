@@ -4,7 +4,8 @@
   "description": "Display weather data on a small OLED on an ESP32",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "upload": "make upload"
   },
   "jest": {
     "collectCoverage": true

@@ -3,38 +3,44 @@
 // Display temp, humidity, air pressure
 // Also display sparklines
 
-const sparkLine = require('https://raw.githubusercontent.com/haraldkubota/esp32/master/weathergraph/src/sparklines.js')
+const sparkLine = require('./modules/sparklines.js')
 
 const VERSION = "1.0"
+
+I2C1.setup({sda: D5, scl: D4});
 
 function splash(){
  g.drawString("Weather App v"+VERSION, 0, 0);
  g.flip(); 
 }
 
-const g = require("SSD1306").connect(I2C1, splash, {height:64});
-require("Font8x12").add(Graphics);
+const g = require("./modules/SSD1306.min.js").connect(I2C1, splash, {height:64});
+require("./modules/Font8x12.min.js").add(Graphics);
 g.setFont8x12();
 
-const bme = require("BME280").connect(I2C1);
+const bme = require("./modules/BME280.min.js").connect(I2C1);
 
-function init() {
-	I2C1.setup({sda: D5, scl: D4});
+
+var updateCounter = 1;
+var updateInterval = 1;
+
+var tSpark = sparkLine(28);
+var pSpark = sparkLine(28);
+var hSpark = sparkLine(28);
+tSpark.minBottomToTop(2);
+pSpark.minBottomToTop(10);
+hSpark.minBottomToTop(5);
+
+function displayGraph(x, y, data) {
+  let i;
+  for (i=0; i<data.length; ++i) {
+    g.setPixel(x+i, y-data[i]);
+  }
 }
-
-var updateCounter = 1
-var updateInterval = 1
-
-var tSpark = sparkLine(12)
-var pSpark = sparkLine(12)
-var hSpark = sparkLine(12)
-tSpark.minBottomToTop = 2
-pSpark.minBottomToTop = 1
-hSpark.minBottomToTop = 5
 
 function updateClockDisplay() {
   g.clear();
-  g.drawString(rtc.readDateTime(), 0, 0);
+  //g.drawString(rtc.readDateTime(), 0, 0);
   if (--updateCounter <=0 ) {
     updateCounter = updateInterval;
     bme.readRawData();
@@ -51,11 +57,10 @@ function updateClockDisplay() {
   g.drawString("Temp: " + temp_act + " C", 0, 14);
   g.drawString("Pressure: " + press_act + " hPa", 0, 28);
   g.drawString("Humidity: " + hum_act + "%", 0, 42);
-  /*
-  tSpark.draw(g, 100, 12, 12);
-  pSpark.draw(g, 100, 24, 12);
-  hSpark.draw(g, 100, 36, 12);
-  */
+  displayGraph(100, 14+12, tSpark.graph(12));
+  displayGraph(100, 28+12, pSpark.graph(12));
+  displayGraph(100, 42+12, hSpark.graph(12));
   g.flip();
 }
 
+setInterval(updateClockDisplay, 1000);

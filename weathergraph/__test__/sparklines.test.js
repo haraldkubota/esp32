@@ -1,4 +1,4 @@
-const sparkLine = require("../src/sparklines.js")
+const sparkLine = require("../src/modules/sparklines.js")
 
 describe('Allocate 3 item sparkline', () => {
   let sl
@@ -58,13 +58,13 @@ describe('simple graph sparklines with 2 data point', () => {
     sl = null
   })
   test('various scales', () => {
-    sl.minBottomToTop = 100
+    sl.minBottomToTop(100);
     sl.push(40)
     sl.push(60)
     expect(sl.graph(100)).toEqual([40, 60])
-    sl.minBottomToTop = 20
+    sl.minBottomToTop(20)
     expect(sl.graph(100)).toEqual([0, 100])
-    sl.minBottomToTop = 50
+    sl.minBottomToTop(50)
     expect(sl.graph(100)).toEqual([30, 70])
   })
 })
@@ -77,14 +77,14 @@ describe('simple graph sparklines with 3 data point', () => {
     sl = null
   })
   test('various scales', () => {
-    sl.minBottomToTop = 100
+    sl.minBottomToTop(100)
     sl.push(40)
     sl.push(60)
     sl.push(50)
     expect(sl.graph(100)).toEqual([40, 60, 50])
-    sl.minBottomToTop = 20
+    sl.minBottomToTop(20)
     expect(sl.graph(100)).toEqual([0, 100, 50])
-    sl.minBottomToTop = 50
+    sl.minBottomToTop(50)
     expect(sl.graph(100)).toEqual([30, 70, 50])
   })
 })
@@ -97,7 +97,7 @@ describe('4 data points', () => {
     sl = null
   })
   test('automatic scaling', () => {
-    sl.minBottomToTop = 100
+    sl.minBottomToTop(100)
     sl.push(50)
     sl.push(150)
     sl.push(40)
@@ -106,7 +106,7 @@ describe('4 data points', () => {
     expect(sl.graph(200)).toEqual([10, 110, 0, 200])
   })
   test('enforced scaling', () => {
-    sl.minBottomToTop = 100
+    sl.minBottomToTop(100)
     sl.push(60)
     sl.push(40)
     sl.push(50)
@@ -115,7 +115,7 @@ describe('4 data points', () => {
     expect(sl.graph(200)).toEqual([120, 80, 100, 80])
   })
   test('enforced scaling 2', () => {
-    sl.minBottomToTop = 100
+    sl.minBottomToTop(100)
     sl.push(1)
     sl.push(0)
     sl.push(2)
