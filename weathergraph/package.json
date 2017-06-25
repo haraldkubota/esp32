@@ -1,0 +1,25 @@
+{
+  "name": "weathergraph",
+  "version": "1.0.0",
+  "description": "Display weather data on a small OLED on an ESP32",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "collectCoverage": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "ds.lan:/volume1/git_repos/js"
+  },
+  "keywords": [
+    "espruino",
+    "esp32"
+  ],
+  "author": "Harald Kubota",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^20.0.4"
+  }
+}
