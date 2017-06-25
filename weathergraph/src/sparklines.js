@@ -1,4 +1,4 @@
-const cb = require('./circularBuffer.js')
+const cb = require('https://raw.githubusercontent.com/haraldkubota/esp32/master/weathergraph/src/circularBuffer.js')
 
 function sparkLine(size) {
 	let slBuffer = cb(size)

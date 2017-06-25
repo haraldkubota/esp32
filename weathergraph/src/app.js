@@ -3,7 +3,7 @@
 // Display temp, humidity, air pressure
 // Also display sparklines
 
-const sparkLine = require('./sparklines.js')
+const sparkLine = require('https://raw.githubusercontent.com/haraldkubota/esp32/master/weathergraph/src/sparklines.js')
 
 const VERSION = "1.0"
 
