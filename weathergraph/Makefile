@@ -17,5 +17,5 @@ test:	$(SRC)/$(APP) $(MODULES)
 	npm test
 
 upload:	$(TMP)
-	dtr-toggle
-	nc 192.168.21.115 23 <$(TMP)
+	-dtr-toggle
+	nc 192.168.21.108 23 <$(TMP)
