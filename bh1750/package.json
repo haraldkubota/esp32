@@ -1,0 +1,28 @@
+{
+  "name": "esp32clock",
+  "version": "1.0.0",
+  "description": "Display clock",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "pack": "webpack-cli",
+    "upload": "make upload"
+  },
+  "jest": {
+    "collectCoverage": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "ds.lan:/volume1/git_repos/js"
+  },
+  "keywords": [
+    "espruino",
+    "esp32"
+  ],
+  "author": "Harald Kubota",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2"
+  }
+}
