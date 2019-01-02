@@ -1,4 +1,4 @@
-const circularBuffer = require("../src/modules/circularBuffer.js")
+const circularBuffer = require("../src/circularBuffer.js")
 
 describe('Allocate 10 item circular buffer', () => {
   let cb

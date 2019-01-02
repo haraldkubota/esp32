@@ -3,19 +3,34 @@
 .PHONY:	upload default
 
 default: upload
+ifndef $(IP)
+IP=192.168.21.120
+endif
 
 APP=app.js
 SRC=src
-MOD=$(SRC)/modules
-MODULES=$(MOD)/sparklines.js $(MOD)/circularBuffer.js
-TMP=/tmp/$(APP)
+MOD=modules
+MODULES=$(MOD)/BME280.js $(MOD)/SSD1306.js $(MOD)/Font8x12.js
+MYMODULES=$(SRC)/sparklines.js $(SRC)/circularBuffer.js
+BUNDLE=dist/app-bundle.js
 
-$(TMP):	$(SRC)/$(APP) $(MODULES)
-	browserify $(SRC)/$(APP) >$(TMP)
+clean:
+	-rm -f $(BUNDLE)
+	-rm $(MODULES)
 
-test:	$(SRC)/$(APP) $(MODULES)
+bundle: $(BUNDLE)
+
+$(BUNDLE): $(SRC)/$(APP) $(MYMODULES) $(MODULES)
+	npm run pack
+	echo >>$(BUNDLE)
+
+$(MOD)/%.js:
+	curl http://www.espruino.com/$@ >$@
+
+test:   $(SRC)/$(APP) $(MODULES)
 	npm test
 
-upload:	$(TMP)
-	-dtr-toggle
-	nc 192.168.21.108 23 <$(TMP)
+upload: $(BUNDLE)
+	-dtr-toggle ; sleep 4
+	nc -w 1 $(IP) 23 <$(BUNDLE)
+

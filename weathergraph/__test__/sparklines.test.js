@@ -1,4 +1,4 @@
-const sparkLine = require("../src/modules/sparklines.js")
+const sparkLine = require("../src/sparklines.js")
 
 describe('Allocate 3 item sparkline', () => {
   let sl

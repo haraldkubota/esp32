@@ -3,7 +3,7 @@
 // Display temp, humidity, air pressure
 // Also display sparklines
 
-const sparkLine = require('./modules/sparklines.js')
+const sparkLine = require('./sparklines.js')
 
 const VERSION = "1.0"
 
@@ -14,11 +14,11 @@ function splash(){
  g.flip(); 
 }
 
-const g = require("./modules/SSD1306.min.js").connect(I2C1, splash, {height:64});
-require("./modules/Font8x12.min.js").add(Graphics);
+const g = require("../modules/SSD1306.js").connect(I2C1, splash, {height:64});
+require("../modules/Font8x12.js").add(Graphics);
 g.setFont8x12();
 
-const bme = require("./modules/BME280.min.js").connect(I2C1);
+const bme = require("../modules/BME280.js").connect(I2C1);
 
 
 var updateCounter = 1;
