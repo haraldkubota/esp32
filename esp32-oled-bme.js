@@ -1,6 +1,6 @@
 /*
 var wifi = require("Wifi");
-wifi.connect("sauerkraut2", {password:"***REMOVED***"}, function(err){
+wifi.connect("sauerkraut2", {password:"AntonAnton"}, function(err){
   console.log("connected? err=", err, "info=", wifi.getIP());
 });
 //wifi.stopAP();
