@@ -1,10 +1,10 @@
 # Simple Makefile
 
-.PHONY:	upload default modules
+.PHONY:	default clean test upload
 
 default: upload
-ifndef $(IP)
-IP=192.168.21.120
+ifndef IP
+IP=192.168.21.180
 endif
 
 APP=app.js
@@ -15,9 +15,13 @@ BUNDLE=dist/app-bundle.js
 
 clean:
 	-rm -f $(BUNDLE)
-	-rm $(MODULES)
+	-rm -f $(MODULES)
 
-$(BUNDLE):	$(SRC)/$(APP) $(MODULES)
+distclean: clean
+	-rm -f package-lock.json
+	-rm -rf node_modules
+
+$(BUNDLE): $(SRC)/$(APP) $(MODULES)
 	npm run pack
 	echo >>$(BUNDLE)
 
@@ -28,5 +32,7 @@ test:	$(SRC)/$(APP) $(MODULES)
 	npm test
 
 upload:	$(BUNDLE)
-	-dtr-toggle ; sleep 4
+	#-dtr-toggle ; sleep 4
+	echo -e "\nreset()\n\n" | nc -w 1 $(IP) 23 ; sleep 1
 	nc -w 1 $(IP) 23 <$(BUNDLE)
+	

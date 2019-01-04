@@ -4,13 +4,13 @@
 
 default: upload
 ifndef IP
-IP=192.168.21.180
+IP=192.168.21.182
 endif
 
 APP=app.js
 SRC=src
 MOD=modules
-MODULES=$(MOD)/BME280.js $(MOD)/SSD1306.js $(MOD)/Font8x12.js
+MODULES=$(MOD)/SH1106.js $(MOD)/Font8x12.js
 BUNDLE=dist/app-bundle.js
 
 clean:
